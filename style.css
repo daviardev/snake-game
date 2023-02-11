@@ -41,5 +41,11 @@ body {
 }
 
 .play-board .food {
-  background-color: #ff003d;
+  background-size: 93%;
+  background-image: url('./src/images/food.png');
+  background-repeat: no-repeat;
+}
+
+.play-board .head {
+  background-color: #67d44c;
 }
