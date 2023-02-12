@@ -1,6 +1,7 @@
 import { $ } from '../utils/dom'
 
 const playBoard = $('.play-board')
+const scoreE = $('.score')
 
 // Position of the food
 
@@ -25,6 +26,10 @@ let velocityY = 0
 let gameOver = false
 let setIntervalId
 
+// Score
+
+let score = 0
+
 // Random value 0 to 30 of the food position
 const changeFoodPosition = () => {
   foodX = Math.floor(Math.random() * 30) + 1 // Change direction of the food in x
@@ -41,16 +46,16 @@ const handleGameOver = () => {
 
 // Change direction of the snake
 const changeDirection = e => {
-  if (e.key === 'ArrowUp' && velocityY != 1) {
+  if (e.key === 'ArrowUp' && velocityY !== 1) {
     velocityX = 0
     velocityY = -1
-  } else if (e.key === 'ArrowDown' && velocityY != -1) {
+  } else if (e.key === 'ArrowDown' && velocityY !== -1) {
     velocityX = 0
     velocityY = 1
-  } else if (e.key === 'ArrowLeft' && velocityX != 1) {
+  } else if (e.key === 'ArrowLeft' && velocityX !== 1) {
     velocityX = -1
     velocityY = 0
-  } else if (e.key === 'ArrowRight' && velocityX != -1) {
+  } else if (e.key === 'ArrowRight' && velocityX !== -1) {
     velocityX = 1
     velocityY = 0
   }
@@ -66,6 +71,9 @@ const initGame = () => {
   if (snakeX === foodX && snakeY === foodY) {
     changeFoodPosition()
     snakeBody.push([foodX, foodY])
+    score++ // Increment score by 1
+
+    scoreE.innerText = `Score: ${score}`
   }
 
   // Add body to the snake
