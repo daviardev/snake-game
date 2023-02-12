@@ -12,6 +12,9 @@ let foodY
 let snakeX = 5
 let snakeY = 10
 
+// Snake body
+const snakeBody = []
+
 // Velocity
 
 let velocityX = 0
@@ -47,12 +50,19 @@ const initGame = () => {
   // Cambiar posición de la comida al tomar la manzana
   if (snakeX === foodX && snakeY === foodY) {
     changeFoodPosition()
+    snakeBody.push([foodX, foodY])
+    console.log(snakeBody)
   }
+
+  snakeBody[0] = [snakeX, snakeY]
 
   snakeX += velocityX
   snakeY += velocityY
 
-  htmlMarkup += `<div class='head' style='grid-area: ${snakeY} / ${snakeX}'></div>`
+  for (let i = 0; i < snakeBody.length; i++) {
+    htmlMarkup += `<div class='head' style='grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}'></div>`
+  }
+
   playBoard.innerHTML = htmlMarkup
 }
 
