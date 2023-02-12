@@ -38,7 +38,6 @@ const changeDirection = e => {
     velocityX = 1
     velocityY = 0
   }
-  initGame()
 }
 
 // Draw area of the scene
@@ -53,6 +52,6 @@ const initGame = () => {
 }
 
 changeFoodPosition()
-initGame()
+setInterval(initGame, 125) // Velocidad de la serpiente
 
 document.addEventListener('keydown', changeDirection)
