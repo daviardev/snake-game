@@ -1,7 +1,8 @@
 import { $ } from '../utils/dom'
 
-const playBoard = $('.play-board')
 const scoreE = $('.score')
+const playBoard = $('.play-board')
+const highScoreE = $('.high-score')
 
 // Position of the food
 
@@ -29,6 +30,9 @@ let setIntervalId
 // Score
 
 let score = 0
+
+let highScore = window.localStorage.getItem('high-score') || 0
+highScoreE.innerText = `High score: ${highScore}`
 
 // Random value 0 to 30 of the food position
 const changeFoodPosition = () => {
@@ -73,7 +77,11 @@ const initGame = () => {
     snakeBody.push([foodX, foodY])
     score++ // Increment score by 1
 
+    highScore = score >= highScore ? score : highScore
+    window.localStorage.setItem('high-score', highScore)
+
     scoreE.innerText = `Score: ${score}`
+    highScoreE.innerText = `High score: ${highScore}`
   }
 
   // Add body to the snake
