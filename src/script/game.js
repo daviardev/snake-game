@@ -20,10 +20,23 @@ const snakeBody = []
 let velocityX = 0
 let velocityY = 0
 
+// is game over
+
+let gameOver = false
+let setIntervalId
+
 // Random value 0 to 30 of the food position
 const changeFoodPosition = () => {
   foodX = Math.floor(Math.random() * 30) + 1 // Change direction of the food in x
   foodY = Math.floor(Math.random() * 30) + 1 // Change direction of the food in y
+}
+
+// Refresh the page when the player lose
+
+const handleGameOver = () => {
+  clearInterval(setIntervalId)
+  window.alert('Game Over! Press OK to replay...')
+  location.reload()
 }
 
 // Change direction of the snake
@@ -45,13 +58,14 @@ const changeDirection = e => {
 
 // Draw area of the scene
 const initGame = () => {
+  if (gameOver) return handleGameOver()
+
   let htmlMarkup = `<div class='food' style='grid-area: ${foodY} / ${foodX}'></div>`
 
   // Cambiar posición de la comida al tomar la manzana
   if (snakeX === foodX && snakeY === foodY) {
     changeFoodPosition()
     snakeBody.push([foodX, foodY])
-    console.log(snakeBody)
   }
 
   // Add body to the snake
@@ -64,6 +78,10 @@ const initGame = () => {
   snakeX += velocityX
   snakeY += velocityY
 
+  if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
+    gameOver = true
+  }
+
   for (let i = 0; i < snakeBody.length; i++) {
     htmlMarkup += `<div class='head' style='grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}'></div>`
   }
@@ -72,6 +90,6 @@ const initGame = () => {
 }
 
 changeFoodPosition()
-setInterval(initGame, 125) // Velocidad de la serpiente
+setIntervalId = setInterval(initGame, 125) // Velocidad de la serpiente
 
 document.addEventListener('keydown', changeDirection)
