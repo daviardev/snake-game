@@ -54,6 +54,11 @@ const initGame = () => {
     console.log(snakeBody)
   }
 
+  // Add body to the snake
+  for (let i = snakeBody.length - 1; i > 0; i--) {
+    snakeBody[i] = snakeBody[i - 1]
+  }
+
   snakeBody[0] = [snakeX, snakeY]
 
   snakeX += velocityX
