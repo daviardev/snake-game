@@ -1,8 +1,9 @@
-import { $ } from '../utils/dom'
+import { $, $$ } from '../utils/dom'
 
 const scoreE = $('.score')
 const playBoard = $('.play-board')
 const highScoreE = $('.high-score')
+const controls = $$('.controls i')
 
 // Position of the food
 
@@ -64,6 +65,11 @@ const changeDirection = e => {
     velocityY = 0
   }
 }
+
+// Controller of the snake
+controls.forEach(key => {
+  key.addEventListener('click', () => changeDirection({ key: key.dataset.key }))
+})
 
 // Draw area of the scene
 const initGame = () => {
