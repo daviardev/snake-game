@@ -44,6 +44,11 @@ const changeDirection = e => {
 const initGame = () => {
   let htmlMarkup = `<div class='food' style='grid-area: ${foodY} / ${foodX}'></div>`
 
+  // Cambiar posición de la comida al tomar la manzana
+  if (snakeX === foodX && snakeY === foodY) {
+    changeFoodPosition()
+  }
+
   snakeX += velocityX
   snakeY += velocityY
 
